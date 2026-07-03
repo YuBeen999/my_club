@@ -56,6 +56,7 @@
   }
   .card.absent { border-left-color: #B4B2A9; }
   .card .date { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+  .card .time { font-size: 12px; color: #666; margin-bottom: 4px; }
   .card .ok { font-size: 12px; color: #666; }
   .card .warn { font-size: 12px; color: #A32D2D; margin-bottom: 2px; }
   .card .name { font-size: 12px; color: #666; }
@@ -81,7 +82,9 @@
 <div id="panel-thu" class="panel"></div>
 <div id="panel-fri" class="panel"></div>
 
-<div class="appendix-title">부록 · 안무원별 불참 횟수 (본인이 참여하는 세션 대비)</div>
+<div class="appendix-title"> [변경사항1] : 8/21(금) - 힙합 13:00-16:00 으로 연습시간 변경합니다!</div>
+<div class="appendix-title"> [변경사항2] : 7/28(화) - [힙합] 13:00-16:00 으로 연습시간 변경합니다!</div>
+<div class="appendix-title">부록 · 안무원별 불참 횟수 (전체 연습 횟수 대비)</div>
 <div id="appendix"></div>
 
 <script>
@@ -96,9 +99,9 @@ const plans = {
     title: '화요일 19:30~22:30 · 힙합&브레이킹 통합 (총 5회)',
     sessions: [
       { date: '7/28(화)', absent: [] },
-      { date: '8/4(화)', absent: ['최가현 (일본여행)'] },
+      { date: '8/4(화)', absent: ['최가현 (일본여행)'],late: ['이주윤, 천영서 (여캠답사, 약 30분 예상)'] },
       { date: '8/11(화)', absent: [] },
-      { date: '8/18(화)', absent: ['최가현 (대만여행)', '한민서 (개인 일정)'] },
+      { date: '8/18(화)', absent: ['최가현 (대만여행)', '한민서 (개인일정)'] },
       { date: '8/25(화)', absent: ['김은서 (여행)'] }
     ]
   },
@@ -118,7 +121,7 @@ const plans = {
       { date: '7/31(금)', absent: [], late: ['김하진 (ㄷㄷㄷ, 17시쯤부터)'] },
       { date: '8/7(금)', absent: [] },
       { date: '8/14(금)', absent: [] },
-      { date: '8/21(금)', absent: [] },
+      { date: '8/21(금)', time: '13:00~16:00', absent: [] },
       { date: '8/28(금)', absent: [] }
     ]
   }
@@ -134,6 +137,9 @@ function renderPlan(key) {
     const cardClass = ok ? 'card' : 'card absent';
     html += '<div class="' + cardClass + '" style="border-left-color:' + (ok ? c.strip : '#B4B2A9') + '">';
     html += '<div class="date">' + s.date + '</div>';
+    if (s.time) {
+      html += '<div class="time">' + s.time + '으로 변경</div>';
+    }
     if (ok) {
       html += '<div class="ok">전원 참석 가능</div>';
     } else {
@@ -177,7 +183,7 @@ const members = [
 ];
 
 let table = '<table>';
-table += '<tr><th>이름</th><th>파트</th><th>세션별 불참</th><th>총 불참/총세션</th></tr>';
+table += '<tr><th>이름</th><th>파트</th><th>요일별 불참</th><th>총 불참/총 횟수</th></tr>';
 members.forEach(m => {
   table += '<tr><td>' + m[0] + '</td><td>' + m[1] + '</td><td>' + m[2] + '</td><td>' + m[3] + '</td></tr>';
 });
